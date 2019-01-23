@@ -20,7 +20,7 @@ import React, { Component } from 'react';
 import reactConsole from 'react-hoc-console';
 import logo from './logo.svg';
 import './App.css';
-This is a simple HOC that allows you to see what is happening with the native console API, however, into your app. It's personalizable, I mean, you can activate or deactivate this HOC.
+
 class App extends Component {
   componentDidMount() {
     console.log('Component Did Mount!');

@@ -14,6 +14,8 @@
 /src
 yarn.lock
 package.json_
+package.json__
+package-lock.json
 
 # misc
 .DS_Store

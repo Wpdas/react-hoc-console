@@ -1,27 +1,45 @@
-Waiting tests...
+Waiting more tests...
 
 HOC working:
 
-```
-(App.js)
-
+```javascript
+import React, { Component } from 'react';
 import reactConsole from 'react-hoc-console';
+import logo from './logo.svg';
+import './App.css';
 
-// Your code...
-
-componentDidMount() {
-  console.log('Component Did Mount!');
-  console.info('Component Did Mount!');
-  console.warn('Component Did Mount!');
-  console.debug('Component Did Mount!');
-  console.error('Component Did Mount!', 'App.js - 12');
+class App extends Component {
+  componentDidMount() {
+    console.log('Component Did Mount!');
+    console.info('Component Did Mount!');
+    console.warn('Component Did Mount!');
+    console.debug('Component Did Mount!');
+    console.error('Component Did Mount!', 'App.js - 12');
+    // console.clear();
+  }
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+        </header>
+      </div>
+    );
+  }
 }
 
-// Your code...
-
 export default reactConsole(App, true);
-
-
 ```
 
 <img width="358" alt="screenshot 2019-01-23 at 04 03 19" src="https://user-images.githubusercontent.com/3761994/51586890-07849c80-1ec6-11e9-95e4-33f6bc77d929.png">

@@ -6,11 +6,13 @@
   "main": "./reactConsole.js",
   "dependencies": {
     "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "node-sass": "^4.11.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "mkdir assets && cp ./src/assets/* ./assets && cp ./src/reactConsole.js ./ && cp ./src/reactConsole.module.scss ./"
+    "build": "webpack",
+    "prepare": "mkdir assets && cp ./src/assets/* ./assets && cp ./src/reactConsole.js ./ && cp ./src/reactConsole.module.scss ./"
   },
   "eslintConfig": {
     "extends": "react-app"

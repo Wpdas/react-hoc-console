@@ -1,7 +1,9 @@
 {
   "name": "react-hoc-console",
   "version": "0.1.0",
+  "description": "A way to see logs into React app through a simple and helpful UI.",
   "private": false,
+  "main": "./reactConsole.js",
   "dependencies": {
     "node-sass": "^4.11.0"
   },
@@ -17,5 +19,25 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "author": {
+    "name": "Wenderson Pires",
+    "email": "wendersonpdas@gmail.com",
+    "url": "https://www.linkedin.com/in/wenderson-pires-silva"
+  },
+  "keywords": [
+    "react",
+    "hoc",
+    "console",
+    "log",
+    "ui",
+    "component",
+    "simple",
+    "native"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wpdas/react-hoc-console"
+  }
 }

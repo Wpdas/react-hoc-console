@@ -13,6 +13,7 @@
 /public
 /src
 yarn.lock
+package.json_
 
 # misc
 .DS_Store

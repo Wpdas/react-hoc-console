@@ -4,7 +4,7 @@ This is a simple HOC that allows you to see what is happening with the native co
 
 ### How to use
 
-The `reactConsole` method provides two parameters, the first one is waiting for a React component. The second one is a boolean that activates or deactivate the console UI.
+The `reactConsole` method provides two parameters, the first one is waiting for a React component. The second one is a boolean that activates or deactivate the console UI. You still be able to see the native console working through the dev tools.
 
 ```javascript
 reactConsole(component:React.Component, activate:boolean);

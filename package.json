@@ -1,6 +1,6 @@
 {
   "name": "react-hoc-console",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A way to see logs into React app through a simple and helpful UI.",
   "private": false,
   "main": "./reactConsole.js",

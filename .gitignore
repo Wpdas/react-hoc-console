@@ -9,12 +9,7 @@
 /coverage
 
 # production
-/build
-/public
-/src
 yarn.lock
-package.json_
-package.json__
 package-lock.json
 
 # misc

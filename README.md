@@ -28,7 +28,6 @@ class App extends Component {
     console.warn('Component Did Mount!');
     console.debug('Component Did Mount!');
     console.error('Component Did Mount!', 'App.js - 12');
-    // console.clear();
   }
   render() {
     return (

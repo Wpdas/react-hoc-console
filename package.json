@@ -1,6 +1,6 @@
 {
   "name": "react-hoc-console",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A way to see logs into React app through a simple and helpful UI.",
   "main": "build/index.js",
   "scripts": {
@@ -21,7 +21,6 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.7.0",
-    "node-sass": "^4.11.0",
     "webpack-cli": "^3.2.1"
   },
   "keywords": [
@@ -29,6 +28,10 @@
     "hoc",
     "console",
     "log",
+    "debug",
+    "warn",
+    "info",
+    "error",
     "ui",
     "component",
     "simple",

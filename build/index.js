@@ -144,15 +144,20 @@ var classes = {
   },
 
   Stage: {
-    width: '100%',
+    width: 'calc(100% - 16px)',
     height: '250px',
     background: '#0e0e0e',
-    padding: '8px'
+    padding: '8px',
+    overflowY: 'scroll'
   },
 
   Text: {
     fontFamily: 'sans-serif',
-    fontSize: '0.9em'
+    fontSize: '0.9em',
+    borderBottom: '1px solid #1f1f1f',
+    width: '100%',
+    paddingBottom: '4px',
+    display: 'block'
   }
 };
 
@@ -222,6 +227,8 @@ var Stage = function (_React$Component) {
       texts: []
     };
 
+    _this.stageRef = _react2.default.createRef();
+
     _this.original = {
       log: window.console.log,
       warn: window.console.warn,
@@ -238,6 +245,8 @@ var Stage = function (_React$Component) {
     _this.error = _this.error.bind(_this);
     _this.clear = _this.clear.bind(_this);
     _this.processText = _this.processText.bind(_this);
+    _this.getHTMLCode = _this.getHTMLCode.bind(_this);
+    _this.onStageChangeHandler = _this.onStageChangeHandler.bind(_this);
 
     window.console.log = _this.log;
     window.console.warn = _this.warn;
@@ -313,9 +322,46 @@ var Stage = function (_React$Component) {
     value: function clear() {
       this.setState({ texts: [] });
     }
+
+    /**
+     * Author: kennebec - https://stackoverflow.com/a/2474742
+     */
+
+  }, {
+    key: 'getHTMLCode',
+    value: function getHTMLCode(element) {
+      if (!element || !element.tagName) return '';
+      var txt = void 0,
+          ax = void 0,
+          el = document.createElement('div');
+      el.appendChild(element.cloneNode(false));
+      txt = el.innerHTML;
+      ax = txt.indexOf('>') + 1;
+      txt = txt.substring(0, ax) + element.innerHTML + txt.substring(ax);
+      el = null;
+      return txt;
+    }
+  }, {
+    key: 'onStageChangeHandler',
+    value: function onStageChangeHandler() {
+      var current = this.stageRef.current;
+      var autoScroll = this.props.autoScroll;
+
+      if (autoScroll) {
+        current.scrollTo(0, current.scrollHeight);
+      }
+    }
   }, {
     key: 'processText',
     value: function processText(text, consoleStyle, additionalText) {
+      var _this2 = this;
+
+      if (text.constructor === Object) {
+        text = JSON.stringify(text);
+      } else if (text.constructor !== String) {
+        text = this.getHTMLCode(text);
+      }
+
       var texts = this.state.texts;
 
       var updatedTexts = texts;
@@ -330,17 +376,18 @@ var Stage = function (_React$Component) {
           text
         ),
         ' ',
-        additionalText,
-        _react2.default.createElement('br', null)
+        additionalText
       ));
-      this.setState({ texts: updatedTexts });
+      this.setState({ texts: updatedTexts }, function () {
+        _this2.onStageChangeHandler();
+      });
     }
   }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { style: classes.Stage },
+        { ref: this.stageRef, style: classes.Stage },
         this.state.texts
       );
     }
@@ -349,7 +396,10 @@ var Stage = function (_React$Component) {
   return Stage;
 }(_react2.default.Component);
 
-var reactConsole = function reactConsole(WrappedComponent, active) {
+var reactConsole = function reactConsole(WrappedComponent) {
+  var active = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+  var autoScroll = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
   return function (_React$Component2) {
     _inherits(_class, _React$Component2);
 
@@ -366,7 +416,7 @@ var reactConsole = function reactConsole(WrappedComponent, active) {
           'div',
           { style: classes.ConsoleUI },
           _react2.default.createElement(SuperBar, null),
-          _react2.default.createElement(Stage, null)
+          _react2.default.createElement(Stage, { autoScroll: autoScroll })
         );
 
         var finalRender = active ? _react2.default.createElement(

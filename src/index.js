@@ -32,15 +32,20 @@ const classes = {
   },
 
   Stage: {
-    width: '100%',
+    width: 'calc(100% - 16px)',
     height: '250px',
     background: '#0e0e0e',
-    padding: '8px'
+    padding: '8px',
+    overflowY: 'scroll'
   },
 
   Text: {
     fontFamily: 'sans-serif',
-    fontSize: '0.9em'
+    fontSize: '0.9em',
+    borderBottom: '1px solid #1f1f1f',
+    width: '100%',
+    paddingBottom: '4px',
+    display: 'block'
   }
 };
 
@@ -94,6 +99,8 @@ class Stage extends React.Component {
       texts: []
     };
 
+    this.stageRef = React.createRef();
+
     this.original = {
       log: window.console.log,
       warn: window.console.warn,
@@ -110,6 +117,8 @@ class Stage extends React.Component {
     this.error = this.error.bind(this);
     this.clear = this.clear.bind(this);
     this.processText = this.processText.bind(this);
+    this.getHTMLCode = this.getHTMLCode.bind(this);
+    this.onStageChangeHandler = this.onStageChangeHandler.bind(this);
 
     window.console.log = this.log;
     window.console.warn = this.warn;
@@ -181,7 +190,37 @@ class Stage extends React.Component {
     this.setState({ texts: [] });
   }
 
+  /**
+   * Author: kennebec - https://stackoverflow.com/a/2474742
+   */
+  getHTMLCode(element) {
+    if (!element || !element.tagName) return '';
+    let txt,
+      ax,
+      el = document.createElement('div');
+    el.appendChild(element.cloneNode(false));
+    txt = el.innerHTML;
+    ax = txt.indexOf('>') + 1;
+    txt = txt.substring(0, ax) + element.innerHTML + txt.substring(ax);
+    el = null;
+    return txt;
+  }
+
+  onStageChangeHandler() {
+    const { current } = this.stageRef;
+    const { autoScroll } = this.props;
+    if (autoScroll) {
+      current.scrollTo(0, current.scrollHeight);
+    }
+  }
+
   processText(text, consoleStyle, additionalText) {
+    if (text.constructor === Object) {
+      text = JSON.stringify(text);
+    } else if (text.constructor !== String) {
+      text = this.getHTMLCode(text);
+    }
+
     let { texts } = this.state;
     let updatedTexts = texts;
     additionalText = additionalText || null;
@@ -189,24 +228,29 @@ class Stage extends React.Component {
     updatedTexts.push(
       <div key={texts.length}>
         <Text style={consoleStyle}>{text}</Text> {additionalText}
-        <br />
       </div>
     );
-    this.setState({ texts: updatedTexts });
+    this.setState({ texts: updatedTexts }, () => {
+      this.onStageChangeHandler();
+    });
   }
 
   render() {
-    return <div style={classes.Stage}>{this.state.texts}</div>;
+    return (
+      <div ref={this.stageRef} style={classes.Stage}>
+        {this.state.texts}
+      </div>
+    );
   }
 }
 
-const reactConsole = (WrappedComponent, active) => {
+const reactConsole = (WrappedComponent, active = true, autoScroll = true) => {
   return class extends React.Component {
     render() {
       const consoleUI = (
         <div style={classes.ConsoleUI}>
           <SuperBar />
-          <Stage />
+          <Stage autoScroll={autoScroll} />
         </div>
       );
 

@@ -59,4 +59,4 @@ class App extends Component {
 export default reactConsole(App);
 ```
 
-<img width="358" alt="screenshot 2019-01-23 at 04 03 19" src="https://user-images.githubusercontent.com/3761994/51586890-07849c80-1ec6-11e9-95e4-33f6bc77d929.png">
+<img width="358" alt="screenshot 2019-01-26 at 05 51 30" src="https://user-images.githubusercontent.com/3761994/51784367-c511c880-212e-11e9-911c-e908606da8ca.png">
